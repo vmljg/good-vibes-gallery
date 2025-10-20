@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun ./**/*.html",
-    "build": "bun build ./src/index.html --outdir=dist",
+    "build": "bun build ./src/*.html --outdir=dist",
     "clean": "rm -rf dist"
   },
   "keywords": [

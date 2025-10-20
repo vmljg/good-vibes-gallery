@@ -344,6 +344,10 @@ html {
     transform: translateY(var(--hero-translate));
     filter: invert(progress(var(--hero-translate), 0vh, 50vh));
 
+    @media (prefers-color-scheme: dark) {
+      filter: none;
+    }
+
     @supports (animation-timeline: scroll()) {
       @media (prefers-reduced-motion: no-preference) {
         animation: hero-columns-shift linear forwards;
@@ -428,12 +432,17 @@ html {
     background-color: var(--bg-surface);
     filter: invert(1);
 
+    @media (prefers-color-scheme: dark) {
+      filter: none;
+      opacity: 1;
+    }
+
     @container hero-image-text (inline-size < 50vw) {
       display: none;
     }
 
     p {
-      font-size: var(--text-sm);
+      font-size: var(--text-lg);
       min-inline-size: 20vw;
 
       @supports (animation-timeline: scroll()) {

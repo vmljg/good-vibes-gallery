@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Good Vibes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300;400;500;600;700&family=Syne:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <main>
+      <div class="hero-scroll-track" data-scrollbar-color="--color-primary">
+        <header class="hero-header">
+          <div class="hero-header__content">
+            <div class="hero-header__content-wrapper">
+              <div class="hero-header__nav">
+                <span class="hero-header__brand no-select">VML</span>
+                <time class="hero-header__date" datetime="2025-10"
+                  >October 2025</time
+                >
+              </div>
+              <h1 class="hero-header__title">
+                <span class="hero-header__title-line">Good</span>
+                <span class="hero-header__title-line">Vibes</span>
+              </h1>
+            </div>
+          </div>
+          <div class="hero-header__image-container">
+            <picture class="hero-header__picture">
+              <source
+                media="(min-aspect-ratio: 1/1)"
+                srcset="image/good-vibes-landscape.jpg"
+              />
+              <source
+                media="(max-aspect-ratio: 1/1)"
+                srcset="image/good-vibes-1.jpg"
+              />
+              <img
+                src="image/good-vibes.jpg"
+                alt="Good Vibes"
+                class="hero-header__image"
+              />
+            </picture>
+            <div class="hero-header__image-text">
+              <p>Casual AI code group at VML.</p>
+            </div>
+            <div class="hero-header__image-text">
+              <p>The <em>No Stupid Questions Club</em> for AI.</p>
+            </div>
+            <img
+              src="image/good-vibes-2.jpg"
+              alt="Good Vibes"
+              class="hero-header__image"
+            />
+          </div>
+        </header>
+      </div>
+
+      <nav
+        id="agenda"
+        class="agenda-section"
+        data-scrollbar-color="--color-secondary"
+      >
+        <div class="agenda-section__header">
+          <h2 class="agenda-section__header-item">Agenda</h2>
+        </div>
+        <details class="agenda-item" name="agenda-item">
+          <summary>
+            <span class="agenda-item__text">Show &amp; Tell</span>
+            <span class="agenda-item__number">1</span>
+          </summary>
+          <div class="agenda-item__content show-and-tell">
+            <section class="show-and-tell__card show-and-tell__card--one">
+              <span class="show-and-tell__card-number no-select">1</span>
+              <h3 class="show-and-tell__card-question">What Did You Make?</h3>
+              <p class="show-and-tell__card-description">
+                Share your project, design, or creative work with the group.
+              </p>
+            </section>
+            <section class="show-and-tell__card show-and-tell__card--two">
+              <span class="show-and-tell__card-number no-select">2</span>
+              <h3 class="show-and-tell__card-question">How Did You Make It?</h3>
+              <p class="show-and-tell__card-description">
+                Walk through your process, tools, and techniques.
+              </p>
+            </section>
+            <section class="show-and-tell__card show-and-tell__card--three">
+              <span class="show-and-tell__card-number no-select">3</span>
+              <h3 class="show-and-tell__card-question">What Did You Learn?</h3>
+              <p class="show-and-tell__card-description">
+                Reflect on insights, challenges, and takeaways.
+              </p>
+            </section>
+          </div>
+        </details>
+        <details class="agenda-item" name="agenda-item">
+          <summary>
+            <span class="agenda-item__text">Q&amp;A</span>
+            <span class="agenda-item__number">2</span>
+          </summary>
+          <div class="agenda-item__content">
+            <p>Questions and answers</p>
+          </div>
+        </details>
+        <details class="agenda-item" name="agenda-item">
+          <summary>
+            <span class="agenda-item__text">Topic</span>
+            <span class="agenda-item__number">3</span>
+          </summary>
+          <div class="agenda-item__content">
+            <p>Discussion topic</p>
+          </div>
+        </details>
+        <div class="agenda-section__footer">
+          <span class="agenda-section__footer-item no-select">VML</span>
+          <span class="agenda-section__footer-item text-uppercase"
+            >Good Vibes</span
+          >
+          <time
+            class="agenda-section__footer-item text-uppercase"
+            datetime="2025-10"
+            >October 2025</time
+          >
+        </div>
+      </nav>
+      <section
+        id="monthly-vibe"
+        class="monthly-vibe-section"
+        data-scrollbar-color="--color-featured"
+      >
+        <div class="monthly-vibe-section__content">
+          <span class="monthly-vibe-section__label text-uppercase"
+            >Monthly Vibe</span
+          >
+          <h2 class="monthly-vibe-section__title text-uppercase">Ghost</h2>
+          <div class="monthly-vibe-section__footer">
+            <span class="monthly-vibe-section__footer-item text-uppercase"
+              >Good Vibes</span
+            >
+          </div>
+        </div>
+        <div class="monthly-vibe-section__image-container">
+          <img
+            src="image/monthly/ghost.png"
+            alt="Monthly vibe: Ghost"
+            class="monthly-vibe-section__image"
+          />
+          <a href="#" class="monthly-vibe-section__cta text-uppercase"
+            >Submit</a
+          >
+          <time class="monthly-vibe-section__date text-uppercase" datetime="2025-10"
+            >October 2025</time
+          >
+        </div>
+      </section>
+      <section
+        id="featured"
+        class="featured-section"
+        data-scrollbar-color="--color-tertiary"
+      >
+        <div class="featured-section__content">
+          <h2 class="featured-section__title">Featured</h2>
+          <p class="featured-section__project-name">Baby Crawler</p>
+          <p class="featured-section__prompt">
+            <strong>Vibe:</strong> <span class="text-uppercase">Endless</span>
+          </p>
+        </div>
+        <div class="featured-section__image-container">
+          <img
+            src="image/featured/baby-crawler.png"
+            alt="Featured project: Baby Crawler"
+            class="featured-section__image"
+          />
+          <p class="featured-section__author">Created by Ben Summers</p>
+        </div>
+      </section>
+    </main>
+    <footer class="footer" data-scrollbar-color="--color-tertiary">
+      <div class="footer__content">
+        <span class="footer__brand footer__brand--left text-uppercase"
+          >Good</span
+        >
+        <span class="footer__brand footer__brand--right text-uppercase"
+          >Vibes</span
+        >
+        <h2 class="footer__title">Thanks</h2>
+      </div>
+      <div class="footer__image-container">
+        <img src="image/thanks.jpg" alt="Thank you" class="footer__image" />
+      </div>
+    </footer>
+    <script src="js/main.js"></script>
+  </body>
+</html>

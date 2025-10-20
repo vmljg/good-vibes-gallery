@@ -1,0 +1,34 @@
+{
+  "name": "good-vibes-gallery",
+  "version": "0.1.0",
+  "description": "A modern gallery showcasing community-submitted websites",
+  "type": "module",
+  "scripts": {
+    "dev": "bun ./**/*.html",
+    "serve": "bun run server.ts",
+    "build": "bun run src/build/generate.ts",
+    "db:init": "bun run src/db/init.ts",
+    "db:seed": "bun run src/db/seed.ts",
+    "process-submission": "bun run scripts/process-submission.ts",
+    "preview": "cd dist && bun --port 3000 --hot",
+    "clean": "rm -rf dist",
+    "test": "bun test"
+  },
+  "keywords": [
+    "gallery",
+    "showcase",
+    "static-site",
+    "bun",
+    "github-pages"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "bun-types": "latest"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

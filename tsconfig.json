@@ -1,0 +1,62 @@
+{
+  "compilerOptions": {
+    // Type Checking
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    
+    // Modules
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    
+    // Emit
+    "noEmit": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    
+    // JavaScript Support
+    "allowJs": true,
+    "checkJs": false,
+    
+    // Interop Constraints
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    
+    // Language and Environment
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "jsx": "preserve",
+    
+    // Projects
+    "composite": false,
+    "incremental": true,
+    
+    // Bun-specific
+    "types": ["bun-types"],
+    
+    // Paths
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@db/*": ["./src/db/*"],
+      "@build/*": ["./src/build/*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "scripts/**/*",
+    "public/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.spec.ts"
+  ]
+}

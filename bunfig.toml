@@ -1,0 +1,26 @@
+# Bun configuration file
+# Documentation: https://bun.sh/docs/runtime/bunfig
+
+[install]
+# Install configuration
+cache = true
+registry = "https://registry.npmjs.org/"
+lockfile = true
+
+[install.scopes]
+# Scoped package registries
+
+[run]
+# Runtime configuration
+shell = "bun"
+
+[test]
+# Test configuration
+preload = []
+
+[build]
+# Build configuration
+target = "browser"
+outdir = "./dist"
+sourcemap = "external"
+minify = true

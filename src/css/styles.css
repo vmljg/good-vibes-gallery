@@ -100,11 +100,54 @@
 }
 
 @layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
   :where(*) {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
   }
+
+  :where(p, h1, h2, h3, h4, h5, h6) {
+    overflow-wrap: break-word;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-inline-size: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
 body:has([name="dark-mode"]:checked) {
@@ -192,15 +235,29 @@ html {
     initial-value: 50vh;
   }
 
+  @property --hero-translate {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0;
+  }
+
   @keyframes hero-columns-shift {
     0% {
       --hero-column-width: 40%;
       --hero-content-block-size: 50vh;
+      --hero-translate: 0;
+    }
+
+    99.9% {
+      --hero-column-width: 100%;
+      --hero-content-block-size: 100vh;
+      --hero-translate: 0;
     }
 
     100% {
       --hero-column-width: 100%;
       --hero-content-block-size: 100vh;
+      --hero-translate: 50vh;
     }
   }
 
@@ -238,7 +295,6 @@ html {
     text-transform: uppercase;
     z-index: 2;
     container-type: size;
-    overflow: hidden;
   }
 
   .hero-header__content-wrapper {
@@ -285,6 +341,16 @@ html {
     justify-content: center;
     align-content: center;
     gap: 0;
+    transform: translateY(var(--hero-translate));
+    filter: invert(progress(var(--hero-translate), 0vh, 50vh));
+
+    @supports (animation-timeline: scroll()) {
+      @media (prefers-reduced-motion: no-preference) {
+        animation: hero-columns-shift linear forwards;
+        animation-timeline: scroll(root);
+        animation-range: entry 0% exit 20%;
+      }
+    }
   }
 
   .hero-header__title-line {
@@ -347,6 +413,7 @@ html {
 
   .hero-header__image-text {
     contain: strict;
+    container: hero-image-text;
     display: grid;
     grid-template-columns: var(--gutter-outer) 1fr var(--gutter-outer);
     grid-template-areas: ". text .";
@@ -361,7 +428,7 @@ html {
     background-color: var(--bg-surface);
     filter: invert(1);
 
-    @container (inline-size < 50vw) {
+    @container hero-image-text (inline-size < 50vw) {
       display: none;
     }
 

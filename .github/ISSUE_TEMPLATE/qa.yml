@@ -1,0 +1,33 @@
+name: ❓ Q&A
+description: Ask a question to be answered during the next meeting
+title: "[Q&A] "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ask a question to the group.
+
+  - type: dropdown
+    id: question-category
+    attributes:
+      label: Question Category
+      description: What is your question about?
+      options:
+        - AI / "Vibe" Coding
+        - AI image generation
+        - MCP
+        - Best Practices
+        - Singularity
+        - Other
+    validations:
+      required: false
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: Please describe your question in detail
+      placeholder: What would you like to know?
+    validations:
+      required: true

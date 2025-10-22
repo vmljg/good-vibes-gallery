@@ -1,0 +1,35 @@
+name: 🎨 Show & Tell
+description: Share your website or project
+title: "[Show & Tell] "
+labels: ["show-and-tell"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing!
+
+  - type: input
+    id: website-url
+    attributes:
+      label: Website URL
+      description: Link to your live website or project
+      placeholder: https://example.com
+    validations:
+      required: true
+
+  - type: input
+    id: repository-url
+    attributes:
+      label: Repository URL (Optional)
+      description: Link to your source code repository
+      placeholder: https://github.com/username/repo
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Project Description
+      description: Tell us about your project. What does it do? What makes it special?
+      placeholder: |
+        A brief description of your project...
+    validations:
+      required: true

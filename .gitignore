@@ -4,14 +4,20 @@ bun.lockb
 
 # Build output
 dist/
+data/
 build/
 *.log
+.astro/
 
 # Database
 data/
 *.db
 *.db-shm
 *.db-wal
+
+# Excel files (data migrated to migrations)
+*.xlsx
+*.xls
 
 # Environment variables
 .env

@@ -1,0 +1,126 @@
+---
+import { Image } from 'astro:assets';
+import thanksImage from '../assets/image/thanks.jpg';
+
+export interface Props {
+  brandLeft?: string;
+  brandRight?: string;
+  title?: string;
+  imageAlt?: string;
+}
+
+const {
+  brandLeft = "Good",
+  brandRight = "Vibes",
+  title = "Thanks",
+  imageAlt = "Thank you"
+} = Astro.props;
+---
+
+<footer class="footer" data-scrollbar-color="--color-tertiary">
+  <div class="footer__content">
+    <span class="footer__brand footer__brand--left text-uppercase">
+      {brandLeft}
+    </span>
+    <span class="footer__brand footer__brand--right text-uppercase">
+      {brandRight}
+    </span>
+    <h2 class="footer__title">{title}</h2>
+  </div>
+  <div class="footer__image-container">
+    <Image 
+      src={thanksImage}
+      alt={imageAlt}
+      class="footer__image"
+      widths={[400, 800, 1200]}
+      sizes="100vw"
+      loading="lazy"
+      format="webp"
+    />
+  </div>
+</footer>
+
+<style>
+  .footer {
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    grid-template-areas:
+      "content"
+      "image";
+    block-size: 100vh;
+    inline-size: 100%;
+    color-scheme: light dark;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .footer__content {
+    grid-area: content;
+    display: grid;
+    grid-template-columns: var(--gutter-outer) 1fr 1fr var(--gutter-outer);
+    grid-template-rows: calc(var(--gutter-block) * 2) auto 1fr calc(
+        var(--gutter-block) * 2
+      );
+    grid-template-areas:
+      ". . . ."
+      ". brand-left brand-right ."
+      ". title title ."
+      ". . . .";
+    background-color: var(--bg-accent);
+  }
+
+  .footer__brand {
+    font-family: var(--font-sans);
+    font-size: clamp(0.875rem, 2vw, 1.125rem);
+    font-weight: 700;
+    color: black;
+    align-self: start;
+  }
+
+  .footer__brand--left {
+    grid-area: brand-left;
+    text-align: start;
+  }
+
+  .footer__brand--right {
+    grid-area: brand-right;
+    text-align: end;
+  }
+
+  .footer__title {
+    grid-area: title;
+    font-family: var(--font-sans);
+    font-size: var(--text-5xl);
+    font-weight: 900;
+    line-height: 0.85;
+    color: black;
+    text-align: center;
+    letter-spacing: var(--tracking-tight);
+    align-self: center;
+  }
+
+  .footer__image-container {
+    grid-area: image;
+    display: grid;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: hidden;
+  }
+
+  .footer__image {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  @media (inline-size < 48rem) {
+    .footer {
+      grid-template-rows: 40vh 60vh;
+    }
+
+    .footer__title {
+      font-size: clamp(3rem, 15vw, 8rem);
+    }
+  }
+</style>

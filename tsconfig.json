@@ -1,4 +1,5 @@
 {
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     // Type Checking
     "strict": true,
@@ -50,6 +51,7 @@
     }
   },
   "include": [
+    ".astro/types.d.ts", "**/*",
     "src/**/*",
     "scripts/**/*",
     "public/**/*.ts"

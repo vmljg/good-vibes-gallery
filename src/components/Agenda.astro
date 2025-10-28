@@ -1,0 +1,429 @@
+---
+export interface Props {
+  items?: Array<{
+    title: string;
+    number: number;
+    content?: string;
+    showAndTell?: boolean;
+  }>;
+  companyName?: string;
+  title?: string;
+  date?: string;
+}
+
+const { 
+  items = [
+    {
+      title: "Show & Tell",
+      number: 1,
+      showAndTell: true
+    },
+    {
+      title: "Q&A",
+      number: 2,
+      content: "Questions and answers"
+    },
+    {
+      title: "Topic",
+      number: 3,
+      content: "Discussion topic"
+    }
+  ],
+  companyName = "VML",
+  title = "Good Vibes",
+  date = "October 2025"
+} = Astro.props;
+---
+
+<nav
+  id="agenda"
+  class="agenda-section"
+  data-scrollbar-color="--color-secondary"
+>
+  <div class="agenda-section__header">
+    <h2 class="agenda-section__header-item">Agenda</h2>
+  </div>
+  
+  {items.map((item, index) => (
+    <details class="agenda-item" name="agenda-item" open={index === 0}>
+      <summary>
+        <span class="agenda-item__text">{item.title}</span>
+        <span class="agenda-item__number">{item.number}</span>
+      </summary>
+      <div class="agenda-item__content" class:list={{"show-and-tell": item.showAndTell}}>
+        {item.showAndTell ? (
+          <>
+            <section class="show-and-tell__card show-and-tell__card--one">
+              <span class="show-and-tell__card-number no-select">1</span>
+              <h3 class="show-and-tell__card-question">What Did You Make?</h3>
+              <p class="show-and-tell__card-description">
+                Share your project, design, or creative work with the group.
+              </p>
+            </section>
+            <section class="show-and-tell__card show-and-tell__card--two">
+              <span class="show-and-tell__card-number no-select">2</span>
+              <h3 class="show-and-tell__card-question">How Did You Make It?</h3>
+              <p class="show-and-tell__card-description">
+                Walk through your process, tools, and techniques.
+              </p>
+            </section>
+            <section class="show-and-tell__card show-and-tell__card--three">
+              <span class="show-and-tell__card-number no-select">3</span>
+              <h3 class="show-and-tell__card-question">What Did You Learn?</h3>
+              <p class="show-and-tell__card-description">
+                Reflect on insights, challenges, and takeaways.
+              </p>
+            </section>
+          </>
+        ) : (
+          <p>{item.content}</p>
+        )}
+      </div>
+    </details>
+  ))}
+  
+  <div class="agenda-section__footer">
+    <span class="agenda-section__footer-item no-select">{companyName}</span>
+    <span class="agenda-section__footer-item text-uppercase">{title}</span>
+    <time class="agenda-section__footer-item text-uppercase" datetime="2025-10">
+      {date}
+    </time>
+  </div>
+</nav>
+
+<style>
+  .agenda-section {
+    display: grid;
+    grid-template-rows: auto 1fr 1fr 1fr auto;
+    grid-template-areas:
+      "header"
+      "part-one"
+      "part-two"
+      "part-three"
+      "footer";
+    min-block-size: 100vh;
+    max-block-size: 100vh;
+    inline-size: 100%;
+    color-scheme: light dark;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: grid-template-rows 0.3s ease;
+    }
+  }
+
+  .agenda-section:has(.agenda-item:nth-child(2)[open]) {
+    grid-template-rows: auto 2fr 0.5fr 0.5fr auto;
+
+    .agenda-item:not([open]) .agenda-item__text {
+      font-size: var(--text-lg);
+    }
+
+    .agenda-item:not([open]) .agenda-item__number {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .agenda-section:has(.agenda-item:nth-child(3)[open]) {
+    grid-template-rows: auto 0.5fr 2fr 0.5fr auto;
+
+    .agenda-item:not([open]) .agenda-item__text {
+      font-size: var(--text-lg);
+    }
+
+    .agenda-item:not([open]) .agenda-item__number {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .agenda-section:has(.agenda-item:nth-child(4)[open]) {
+    grid-template-rows: auto 0.5fr 0.5fr 2fr auto;
+
+    .agenda-item:not([open]) .agenda-item__text {
+      font-size: var(--text-lg);
+    }
+
+    .agenda-item:not([open]) .agenda-item__number {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  .agenda-item {
+    border: none;
+    color: inherit;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    overflow: hidden;
+  }
+
+  .agenda-item[open] {
+    overflow: hidden;
+  }
+
+  .agenda-item summary {
+    display: grid;
+    grid-template-columns: var(--gutter-outer) 1fr auto var(--gutter-outer);
+    grid-template-areas: ". text number .";
+    align-items: center;
+    padding-block: calc(var(--gutter-block) * 1.5);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: opacity 0.2s ease;
+    }
+  }
+
+  .agenda-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .agenda-item summary:hover {
+    opacity: 0.8;
+  }
+
+  .agenda-item[open] summary {
+    padding-block-end: var(--gutter-block);
+  }
+
+  .agenda-item:has(.show-and-tell)[open] summary {
+    padding-block-end: 0;
+  }
+
+  .agenda-item__content {
+    display: grid;
+    grid-template-columns: var(--gutter-outer) 1fr var(--gutter-outer);
+    grid-template-areas: ". content .";
+    padding-block-end: calc(var(--gutter-block) * 1.5);
+
+    @supports (interpolate-size: allow-keywords) {
+      @media (prefers-reduced-motion: no-preference) {
+        @starting-style {
+          opacity: 0;
+        }
+
+        opacity: 1;
+        transition: opacity 0.3s ease;
+      }
+    }
+  }
+
+  .agenda-item__content > * {
+    grid-area: content;
+    font-family: var(--font-serif);
+    font-size: var(--text-base);
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+
+  .agenda-item__content.show-and-tell {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: none;
+    padding: 0;
+    block-size: 100%;
+
+    @supports (interpolate-size: allow-keywords) {
+      @media (prefers-reduced-motion: no-preference) {
+        @starting-style {
+          opacity: 0;
+        }
+
+        opacity: 1;
+        transition: opacity 0.3s ease;
+      }
+    }
+  }
+
+  .agenda-item__content.show-and-tell > * {
+    grid-area: auto;
+  }
+
+  .show-and-tell__card {
+    display: grid;
+    grid-template-columns: var(--gutter-inner) 1fr var(--gutter-inner);
+    grid-template-rows: var(--gutter-block) auto auto 1fr var(--gutter-block);
+    grid-template-areas:
+      ". . ."
+      ". number ."
+      ". question ."
+      ". description ."
+      ". . .";
+    row-gap: clamp(0.75rem, 1.5vh, 1.5rem);
+    container-type: inline-size;
+    block-size: 100%;
+  }
+
+  .show-and-tell__card--one {
+    background-color: var(--color-featured);
+  }
+
+  .show-and-tell__card--two {
+    background-color: var(--color-secondary);
+  }
+
+  .show-and-tell__card--three {
+    background-color: yellow;
+  }
+
+  .show-and-tell__card-number {
+    grid-area: number;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: black;
+  }
+
+  .show-and-tell__card-question {
+    grid-area: question;
+    font-family: var(--font-serif);
+    font-size: clamp(1.25rem, 3cqi, 2rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: black;
+    text-wrap: balance;
+  }
+
+  .show-and-tell__card-description {
+    grid-area: description;
+    font-family: var(--font-serif);
+    font-size: clamp(0.875rem, 2cqi, 1rem);
+    font-weight: 300;
+    line-height: 1.5;
+    color: black;
+    text-wrap: pretty;
+    align-self: start;
+  }
+
+  @media (inline-size < 48rem) {
+    .agenda-item__content.show-and-tell {
+      grid-template-columns: 1fr;
+    }
+
+    .show-and-tell__card {
+      min-block-size: 20vh;
+    }
+  }
+
+  .agenda-item:nth-child(2) {
+    grid-area: part-one;
+    background-color: var(--bg-primary);
+  }
+
+  .agenda-item:nth-child(3) {
+    grid-area: part-two;
+    background-color: var(--bg-secondary);
+  }
+
+  .agenda-item:nth-child(4) {
+    grid-area: part-three;
+    background-color: var(--bg-tertiary);
+  }
+
+  .agenda-section__header {
+    grid-area: header;
+    display: grid;
+    grid-template-columns: var(--gutter-outer) 1fr var(--gutter-outer);
+    grid-template-rows: var(--gutter-block) auto var(--gutter-block);
+    grid-template-areas:
+      ". . ."
+      ". header-content ."
+      ". . .";
+    align-items: center;
+    background-color: var(--bg-primary);
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-wide);
+    color: var(--text-primary);
+    text-transform: uppercase;
+  }
+
+  .agenda-section__header-item {
+    grid-area: header-content;
+    text-align: center;
+  }
+
+  .agenda-item__text {
+    grid-area: text;
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    color: var(--text-primary);
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: font-size 0.3s ease;
+    }
+  }
+
+  .agenda-item__number {
+    grid-area: number;
+    font-family: var(--font-sans);
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: font-size 0.3s ease;
+    }
+  }
+
+  .agenda-section__footer {
+    grid-area: footer;
+    display: grid;
+    grid-template-columns: var(--gutter-outer) 1fr 1fr 1fr var(--gutter-outer);
+    grid-template-rows: var(--gutter-block) auto var(--gutter-block);
+    grid-template-areas:
+      ". . . . ."
+      ". company-name agenda-title date ."
+      ". . . . .";
+    align-items: center;
+    background-color: var(--bg-tertiary);
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-wide);
+    color: var(--text-primary);
+  }
+
+  .agenda-section__footer-item {
+    text-align: center;
+  }
+
+  .agenda-section__footer-item:first-child {
+    grid-area: company-name;
+    text-align: start;
+  }
+
+  .agenda-section__footer-item:nth-child(2) {
+    grid-area: agenda-title;
+  }
+
+  .agenda-section__footer-item:last-child {
+    grid-area: date;
+    text-align: end;
+  }
+
+  @media (inline-size < 48rem) {
+    .agenda-section__footer {
+      grid-template-columns: var(--gutter-outer) 1fr var(--gutter-outer);
+      grid-template-rows: var(--gutter-block) auto auto auto var(--gutter-block);
+      grid-template-areas:
+        ". . ."
+        ". company-name ."
+        ". agenda-title ."
+        ". date ."
+        ". . .";
+      gap: 1vh;
+    }
+
+    .agenda-section__footer-item:first-child,
+    .agenda-section__footer-item:last-child {
+      text-align: center;
+    }
+  }
+</style>

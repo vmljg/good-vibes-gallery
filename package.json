@@ -4,9 +4,11 @@
   "description": "A modern gallery showcasing community-submitted websites",
   "type": "module",
   "scripts": {
-    "dev": "bun ./**/*.html",
-    "build": "bun build ./src/*.html --outdir=dist",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "keywords": [
     "gallery",
@@ -21,8 +23,11 @@
     "@types/bun": "latest",
     "bun-types": "latest"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@astrojs/check": "^0.9.5",
+    "astro": "^5.15.1"
+  },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.9.3"
   }
 }

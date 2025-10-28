@@ -1,0 +1,65 @@
+---
+import '../styles/global.css';
+import { ViewTransitions } from 'astro:transitions';
+
+export interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title = "Good Vibes Gallery", description = "Community submitted websites showcasing creative AI projects" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		
+		<!-- Font imports -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300;400;500;600;700&family=Syne:wght@400;500;700;900&display=swap"
+			rel="stylesheet"
+		/>
+		
+		<!-- View Transitions -->
+		<ViewTransitions />
+	</head>
+	<body>
+		<slot />
+		<script>
+			// Main JavaScript file for Good Vibes Gallery
+			// This file can be used for any interactive functionality
+
+			// Example: Smooth scroll behavior for anchor links
+			document.addEventListener('DOMContentLoaded', () => {
+			  // Handle smooth scrolling for anchor links
+			  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+			  
+			  anchorLinks.forEach(link => {
+			    link.addEventListener('click', (e) => {
+			      e.preventDefault();
+			      const targetId = link.getAttribute('href').substring(1);
+			      const targetElement = document.getElementById(targetId);
+			      
+			      if (targetElement) {
+			        targetElement.scrollIntoView({
+			          behavior: 'smooth',
+			          block: 'start'
+			        });
+			      }
+			    });
+			  });
+
+			  // Add any other interactive functionality here
+			  console.log('Good Vibes Gallery loaded');
+			});
+		</script>
+	</body>
+</html>

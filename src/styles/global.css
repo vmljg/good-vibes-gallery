@@ -1,0 +1,243 @@
+/* Register custom properties for animation */
+@property --scrollbar-thumb {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --scrollbar-thumb-hover {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+:root {
+  /* Colors - Base palette */
+  --color-neutral: ghostwhite;
+  --color-primary: darkseagreen;
+  --color-secondary: olive;
+  --color-tertiary: salmon;
+  --color-accent: tomato;
+  --color-accent-alt: orange;
+  --color-featured: plum;
+  --color-cta: chartreuse;
+
+  /* Colors - Derived using relative color syntax */
+  --bg-primary: light-dark(
+    oklch(from var(--color-primary) calc(l + 0.2) c h),
+    oklch(from var(--color-primary) calc(l - 0.2) c h)
+  );
+  --bg-secondary: light-dark(
+    oklch(from var(--color-secondary) calc(l + 0.15) c h),
+    oklch(from var(--color-secondary) calc(l - 0.15) c h)
+  );
+  --bg-tertiary: light-dark(
+    oklch(from var(--color-tertiary) calc(l + 0.16) c h),
+    oklch(from var(--color-tertiary) calc(l - 0.16) c h)
+  );
+  --text-primary: light-dark(black, white);
+
+  --bg-surface: light-dark(
+    oklch(from var(--color-neutral) calc(l + 0.31) c h),
+    oklch(from var(--color-neutral) calc(l - 0.31) c h)
+  );
+
+  --bg-accent: light-dark(
+    oklch(from var(--color-accent) l c h),
+    oklch(from var(--color-accent) calc(l - 0.2) c h)
+  );
+
+  --bg-featured: light-dark(
+    oklch(from var(--color-featured) calc(l + 0.2) c h),
+    oklch(from var(--color-featured) calc(l - 0.2) c h)
+  );
+
+  --bg-monthly-vibe: light-dark(
+    oklch(from var(--color-accent-alt) calc(l + 0.1) c h),
+    oklch(from var(--color-accent-alt) calc(l - 0.1) c h)
+  );
+
+  /* Scrollbar - Derived from primary color */
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: light-dark(
+    oklch(from var(--color-primary) l 0.05 h),
+    oklch(from var(--color-primary) calc(l - 0.1) 0.05 h)
+  );
+  --scrollbar-thumb-hover: light-dark(
+    oklch(from var(--color-primary) calc(l - 0.1) 0.08 h),
+    oklch(from var(--color-primary) l 0.08 h)
+  );
+
+  /* Design System - Spacing */
+  --gutter-outer: clamp(4%, 5vw, 10%);
+  --gutter-inner: clamp(2%, 3vw, 5%);
+  --gutter-block: clamp(2vh, 3vh, 5vh);
+  --gutter-content: clamp(2rem, 5vw, 4rem);
+
+  /* Design System - Section Heights */
+  --section-height-extended: 150vh;
+
+  /* Typography - Fonts */
+  --font-sans: "Syne", sans-serif;
+  --font-serif: "IBM Plex Serif", serif;
+
+  /* Typography - Sizes */
+  --text-xs: clamp(0.75rem, 1.5vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 1.5vw, 1rem);
+  --text-base: clamp(1.25rem, 2.5vw, 2rem);
+  --text-lg: clamp(1.5rem, 3vw, 2.5rem);
+  --text-xl: clamp(2rem, 4vw, 3.5rem);
+  --text-2xl: clamp(3rem, 8vw, 6rem);
+  --text-3xl: clamp(4rem, 10vw, 8rem);
+  --text-4xl: clamp(4rem, 12vw, 10rem);
+  --text-5xl: clamp(4rem, 15vw, 12rem);
+
+  /* Typography - Letter Spacing */
+  --tracking-tight: -0.02em;
+  --tracking-wide: 0.05em;
+
+  color-scheme: light dark;
+}
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  :where(*) {
+    margin: 0;
+    padding: 0;
+  }
+
+  :where(p, h1, h2, h3, h4, h5, h6) {
+    overflow-wrap: break-word;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-inline-size: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+body:has([name="dark-mode"]:checked) {
+  color-scheme: only dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color-scheme: only dark;
+  }
+}
+
+/* Utility: Full viewport section with snap */
+.section-full-viewport {
+  min-block-size: 100vh;
+  inline-size: 100%;
+  color-scheme: light dark;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Utility: Full size image */
+.image-full {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Utility: Uppercase label text */
+.text-label {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.text-serif {
+  font-family: var(--font-serif);
+}
+
+.text-italic {
+  font-style: italic;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+html {
+  min-inline-size: 20rem;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  scrollbar-width: thin;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: scrollbar-color 0.5s ease;
+    interpolate-size: allow-keywords;
+  }
+}
+
+:where(h1, h2, h3, h4, h5, h6, p, time, img),
+.no-select {
+  cursor: default;
+  user-select: none;
+}
+
+:where(img, picture) {
+  pointer-events: none;
+}
+
+/* View Transitions */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(featured-image),
+::view-transition-new(featured-image) {
+  animation-duration: 0.5s;
+}
+
+::view-transition-old(featured-title),
+::view-transition-new(featured-title) {
+  animation-duration: 0.4s;
+}
+
+::view-transition-old(featured-author),
+::view-transition-new(featured-author) {
+  animation-duration: 0.4s;
+}

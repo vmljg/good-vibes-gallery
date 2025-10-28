@@ -1,0 +1,182 @@
+---
+import { Image } from 'astro:assets';
+import babyCrawlerImage from '../assets/image/featured/baby-crawler.png';
+
+export interface Props {
+  title?: string;
+  projectName?: string;
+  projectUrl?: string;
+  vibe?: string;
+  imageAlt?: string;
+  author?: string;
+}
+
+const {
+  title = "Featured",
+  projectName = "Baby Crawler",
+  projectUrl = "/featured",
+  vibe = "Endless",
+  imageAlt = "Featured project: Baby Crawler",
+  author = "Created by Ben Summers"
+} = Astro.props;
+---
+
+<section
+  id="featured"
+  class="featured-section"
+  data-scrollbar-color="--color-tertiary"
+>
+  <div class="featured-section__content">
+    <h2 class="featured-section__title">
+      <a href={projectUrl} class="featured-section__link">{title}</a>
+    </h2>
+    <p class="featured-section__project-name">
+      <a href={projectUrl} class="featured-section__link">{projectName}</a>
+    </p>
+    <p class="featured-section__prompt">
+      <strong>Vibe:</strong> <span class="text-uppercase">{vibe}</span>
+    </p>
+  </div>
+  <div class="featured-section__image-container">
+    <a href={projectUrl} class="featured-section__link">
+      <Image
+        src={babyCrawlerImage}
+        alt={imageAlt}
+        class="featured-section__image"
+        widths={[400, 800, 1200]}
+        sizes="100vw"
+        loading="eager"
+        format="webp"
+      />
+    </a>
+    <p class="featured-section__author">
+      <a href={projectUrl} class="featured-section__link">{author}</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .featured-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-block-size: 100vh;
+    inline-size: 100%;
+    color-scheme: light dark;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    background-color: var(--bg-featured);
+    container-type: size;
+  }
+
+  .featured-section__link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .featured-section__link:hover .featured-section__content {
+    opacity: 0.95;
+  }
+
+  .featured-section__content {
+    display: grid;
+    grid-template-columns: var(--gutter-outer) 1fr var(--gutter-inner);
+    grid-template-rows: var(--gutter-content) auto 1fr auto auto var(
+        --gutter-content
+      );
+    grid-template-areas:
+      ". . ."
+      ". title ."
+      ". . ."
+      ". project-name ."
+      ". prompt ."
+      ". . .";
+    align-self: stretch;
+    min-block-size: 100vh;
+    block-size: 100%;
+    block-size: stretch;
+    transition: opacity 0.2s ease;
+  }
+
+  .featured-section__title {
+    grid-area: title;
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--text-primary);
+    view-transition-name: featured-title;
+  }
+
+  .featured-section__project-name {
+    grid-area: project-name;
+    font-family: var(--font-serif);
+    font-size: var(--text-base);
+    font-weight: 400;
+    color: var(--text-primary);
+  }
+
+  .featured-section__prompt {
+    grid-area: prompt;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 400;
+    letter-spacing: var(--tracking-wide);
+    color: var(--text-primary);
+    margin-block-start: clamp(0.5rem, 1vh, 1rem);
+  }
+
+  .featured-section__image-container {
+    background-color: var(--bg-primary);
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: visible;
+  }
+
+  .featured-section__image {
+    inline-size: min(100%, 100vh);
+    block-size: min(100%, 100vh);
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center;
+    view-transition-name: featured-image;
+    color-scheme: light dark;
+
+    @media (min-width: 80rem) {
+      clip-path: circle(min(22cqi, 40%));
+    }
+  }
+
+  .featured-section__author {
+    position: absolute;
+    inset-block-end: var(--gutter-content);
+    inset-inline: 0;
+    font-family: var(--font-sans);
+    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+    font-weight: 500;
+    letter-spacing: var(--tracking-wide);
+    color: var(--text-primary);
+    text-transform: uppercase;
+    text-align: center;
+    padding-inline: var(--gutter-content);
+    z-index: 1;
+    view-transition-name: featured-author;
+    filter: invert(1);
+
+    @media (min-width: 80rem) {
+      filter: none;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .featured-section {
+      grid-template-columns: 1fr;
+      grid-template-rows: 50vh 50vh;
+    }
+
+    .featured-section__content {
+      min-block-size: auto;
+    }
+  }
+</style>

@@ -1,0 +1,184 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+// Get all unique vibes from submissions
+const submissions = await getCollection('submissions');
+const vibes = [...new Set(submissions.map((entry) => entry.data.vibe))].sort();
+---
+
+<Layout title="Vibes - Good Vibes Gallery">
+  <main class="vibes-index">
+    <section class="vibes-index__intro">
+      <p class="vibes-index__eyebrow">Monthly Challenges</p>
+      <h1 class="vibes-index__heading">
+        Create something for the sake of creating something.
+      </h1>
+      <p class="vibes-index__company">
+        <a href="/" class="vibes-index__back">← Back</a>
+      </p>
+    </section>
+    
+    <section class="vibes-index__list">
+      <p class="vibes-index__label">Vibes</p>
+      <nav class="vibes-index__nav">
+        <ul class="vibes-index__items">
+          {vibes.map((vibe) => (
+            <li class="vibes-index__item">
+              <a href={`/vibes/${vibe.toLowerCase()}`} class="vibes-index__link">
+                {vibe}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <p class="vibes-index__footer">
+        <a href="/" class="vibes-index__footer-link">Good Vibes</a>
+      </p>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .vibes-index {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-block-size: 100vh;
+    inline-size: 100%;
+  }
+
+  .vibes-index__intro {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: var(--gutter-content) var(--gutter-outer);
+    background-color: var(--color-secondary);
+    color: var(--text-primary);
+  }
+
+  .vibes-index__eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    margin: 0;
+  }
+
+  .vibes-index__heading {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1.2;
+    align-self: center;
+    margin: 0;
+  }
+
+  .vibes-index__company {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    align-self: end;
+    margin: 0;
+  }
+
+  .vibes-index__back {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .vibes-index__back:hover {
+    opacity: 0.7;
+  }
+
+  .vibes-index__list {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: var(--gutter-content) var(--gutter-outer);
+    background-color: var(--bg-tertiary);
+  }
+
+  .vibes-index__label {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    margin: 0;
+  }
+
+  .vibes-index__nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .vibes-index__items {
+    inline-size: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .vibes-index__item {
+    border-block-end: 2px solid var(--text-primary);
+    padding-block: 1.5rem;
+  }
+
+  .vibes-index__link {
+    font-family: var(--font-sans);
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 900;
+    color: var(--text-primary);
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: end;
+    display: block;
+    transition: opacity 0.2s ease;
+  }
+
+  .vibes-index__link:hover {
+    opacity: 0.7;
+  }
+
+  .vibes-index__footer {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    text-align: end;
+    align-self: end;
+    margin: 0;
+  }
+
+  .vibes-index__footer-link {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .vibes-index__footer-link:hover {
+    opacity: 0.7;
+  }
+
+  @media (max-width: 48rem) {
+    .vibes-index {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+    }
+
+    .vibes-index__intro {
+      min-block-size: 40vh;
+    }
+
+    .vibes-index__heading {
+      font-size: clamp(1.5rem, 8vw, 2.5rem);
+    }
+
+    .vibes-index__link {
+      font-size: clamp(1.5rem, 10vw, 3rem);
+    }
+  }
+</style>

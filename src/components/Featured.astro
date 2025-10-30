@@ -1,24 +1,38 @@
 ---
+import { getEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import babyCrawlerImage from '../assets/image/featured/baby-crawler.png';
 
 export interface Props {
-  title?: string;
-  projectName?: string;
-  projectUrl?: string;
-  vibe?: string;
-  imageAlt?: string;
-  author?: string;
+  slug?: string;
 }
 
-const {
-  title = "Featured",
-  projectName = "Baby Crawler",
-  projectUrl = "/featured",
-  vibe = "Endless",
-  imageAlt = "Featured project: Baby Crawler",
-  author = "Created by Ben Summers"
-} = Astro.props;
+const { slug = 'baby-crawler' } = Astro.props;
+
+// Load submission data from content collection
+const entry = await getEntry('submissions', slug);
+
+if (!entry) {
+  throw new Error(`Submission "${slug}" not found`);
+}
+
+// Extract data
+const title = "Featured";
+const projectName = entry.data.title;
+const featuredUrl = `/featured/${slug}`;
+const vibe = entry.data.vibe;
+const author = `Created by ${entry.data.author}`;
+
+// Load image dynamically
+const images = import.meta.glob('/src/assets/submissions/*.{png,jpg,jpeg,webp}', { eager: true });
+const hasImage = entry.data.image;
+const imagePath = hasImage ? `/src/assets/submissions/${entry.data.image}` : null;
+const imageModule = imagePath ? images[imagePath] as { default: ImageMetadata } | undefined : null;
+
+// Fallback to baby-crawler image if no image specified
+
+const displayImage = imageModule?.default || babyCrawlerImage;
+const imageAlt = `Featured project: ${projectName}`;
 ---
 
 <section
@@ -28,19 +42,19 @@ const {
 >
   <div class="featured-section__content">
     <h2 class="featured-section__title">
-      <a href={projectUrl} class="featured-section__link">{title}</a>
+      <a href={featuredUrl} class="featured-section__link">{title}</a>
     </h2>
     <p class="featured-section__project-name">
-      <a href={projectUrl} class="featured-section__link">{projectName}</a>
+      <a href={featuredUrl} class="featured-section__link">{projectName}</a>
     </p>
     <p class="featured-section__prompt">
       <strong>Vibe:</strong> <span class="text-uppercase">{vibe}</span>
     </p>
   </div>
   <div class="featured-section__image-container">
-    <a href={projectUrl} class="featured-section__link">
+    <a href={featuredUrl} class="featured-section__link">
       <Image
-        src={babyCrawlerImage}
+        src={displayImage}
         alt={imageAlt}
         class="featured-section__image"
         widths={[400, 800, 1200]}
@@ -50,7 +64,7 @@ const {
       />
     </a>
     <p class="featured-section__author">
-      <a href={projectUrl} class="featured-section__link">{author}</a>
+      <a href={featuredUrl} class="featured-section__link">{author}</a>
     </p>
   </div>
 </section>

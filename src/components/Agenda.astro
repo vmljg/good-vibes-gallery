@@ -91,6 +91,25 @@ const {
   </div>
 </nav>
 
+<script>
+  const agendaSection = document.getElementById('agenda');
+  
+  if (agendaSection) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          const detailsElements = agendaSection.querySelectorAll('details');
+          detailsElements.forEach((details) => {
+            details.open = false;
+          });
+        }
+      });
+    }, { threshold: 0 });
+    
+    observer.observe(agendaSection);
+  }
+</script>
+
 <style>
   .agenda-section {
     display: grid;
@@ -188,6 +207,12 @@ const {
     padding-block-end: var(--gutter-block);
   }
 
+  .agenda-section:has(.agenda-item[open]) .agenda-item:not([open]) {
+    block-size: 100%;
+    max-block-size: 25vh;
+    overflow: visible;
+  }
+
   .agenda-item:has(.show-and-tell)[open] summary {
     padding-block-end: 0;
   }
@@ -255,18 +280,21 @@ const {
     row-gap: clamp(0.75rem, 1.5vh, 1.5rem);
     container-type: inline-size;
     block-size: 100%;
+    background-color: var(--color-inverse);
+    color: var(--color-neutral);
+    border-inline-start: 1vw solid;
   }
 
   .show-and-tell__card--one {
-    background-color: var(--color-featured);
+    border-color: var(--color-primary);
   }
 
   .show-and-tell__card--two {
-    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
   }
 
   .show-and-tell__card--three {
-    background-color: yellow;
+    border-color: var(--color-tertiary);
   }
 
   .show-and-tell__card-number {
@@ -274,7 +302,6 @@ const {
     font-family: var(--font-sans);
     font-size: var(--text-base);
     font-weight: 500;
-    color: black;
   }
 
   .show-and-tell__card-question {
@@ -283,7 +310,6 @@ const {
     font-size: clamp(1.25rem, 3cqi, 2rem);
     font-weight: 400;
     line-height: 1.2;
-    color: black;
     text-wrap: balance;
   }
 
@@ -293,7 +319,6 @@ const {
     font-size: clamp(0.875rem, 2cqi, 1rem);
     font-weight: 300;
     line-height: 1.5;
-    color: black;
     text-wrap: pretty;
     align-self: start;
   }
@@ -305,6 +330,11 @@ const {
 
     .show-and-tell__card {
       min-block-size: 20vh;
+    }
+
+    .show-and-tell__card-number {
+      text-align: center;
+      align-self: center;
     }
   }
 

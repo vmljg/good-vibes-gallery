@@ -1,0 +1,166 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+export async function getStaticPaths() {
+  const submissions = await getCollection('submissions');
+  const vibes = [...new Set(submissions.map((entry: CollectionEntry<'submissions'>) => entry.data.vibe))];
+  
+  return vibes.map((vibe) => ({
+    params: { vibe: String(vibe).toLowerCase() },
+    props: {
+      vibe: String(vibe),
+      submissions: submissions.filter((entry: CollectionEntry<'submissions'>) => entry.data.vibe === vibe),
+    },
+  }));
+}
+
+type Props = {
+  vibe: string;
+  submissions: CollectionEntry<'submissions'>[];
+};
+
+const { vibe, submissions } = Astro.props as Props;
+const images = import.meta.glob('/src/assets/submissions/*.{png,jpg,jpeg,webp}', { eager: true });
+---
+
+<Layout title={`${vibe} Vibe - Good Vibes`}>
+  <main class="vibe-page">
+    <header class="vibe-page__header">
+      <a href="/vibes" class="vibe-page__back">← Back</a>
+      <h1 class="vibe-page__title text-uppercase">{vibe}</h1>
+      <p class="vibe-page__count">{submissions.length} {submissions.length === 1 ? 'project' : 'projects'}</p>
+    </header>
+    
+    <div class="vibe-page__grid">
+      {submissions.map((entry) => {
+        const hasImage = entry.data.image;
+        const imagePath = hasImage ? `/src/assets/submissions/${entry.data.image}` : null;
+        const imageModule = imagePath ? images[imagePath] as { default: ImageMetadata } | undefined : null;
+        
+        return (
+          <article class="vibe-card">
+            <a href={`/featured/${entry.slug}`} class="vibe-card__link">
+              {hasImage && imageModule?.default ? (
+                <Image
+                  src={imageModule!.default}
+                  alt={entry.data.title}
+                  class="vibe-card__image"
+                  widths={[400, 600]}
+                  format="webp"
+                />
+              ) : (
+                <svg class="vibe-card__image" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+                  <foreignObject width="800" height="450">
+                    <iframe
+                      src={entry.data.liveSite}
+                      title={entry.data.title}
+                      class="vibe-card__iframe"
+                      loading="lazy"
+                    ></iframe>
+                  </foreignObject>
+                </svg>
+              )}
+              <h2 class="vibe-card__title">{entry.data.title}</h2>
+              <p class="vibe-card__author">by {entry.data.author}</p>
+            </a>
+          </article>
+        );
+      })}
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .vibe-page {
+    min-block-size: 100vh;
+    padding: var(--gutter-content) var(--gutter-outer);
+    background-color: var(--bg-primary);
+  }
+
+  .vibe-page__header {
+    max-inline-size: 80rem;
+    margin-inline: auto;
+    margin-block-end: 4rem;
+  }
+
+  .vibe-page__back {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    color: var(--text-primary);
+    text-decoration: none;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+  }
+
+  .vibe-page__title {
+    font-family: var(--font-sans);
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 900;
+    color: var(--text-primary);
+    margin-block: 1rem;
+  }
+
+  .vibe-page__count {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+  }
+
+  .vibe-page__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: 2rem;
+    max-inline-size: 80rem;
+    margin-inline: auto;
+  }
+
+  .vibe-card {
+    background-color: var(--bg-surface);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .vibe-card__link {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .vibe-card__image {
+    inline-size: 100%;
+    flex: 1;
+    min-block-size: 0;
+    object-fit: cover;
+  }
+
+  .vibe-card__title {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--text-primary);
+    padding: 0.75rem 1rem 0.5rem;
+    margin: 0;
+  }
+
+  .vibe-card__author {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+    padding-inline: 1rem;
+    padding-block-end: 0.75rem;
+    margin: 0;
+  }
+
+  .vibe-card__iframe {
+    inline-size: 100%;
+    block-size: 100%;
+    border: none;
+  }
+</style>

@@ -11,19 +11,16 @@ This project uses Astro's content-driven architecture with the latest HTML, CSS,
 - **Database**: SQLite for content management (bun:sqlite)
 - **Frontend**: Astro components + Modern CSS (Islands Architecture)
 - **Build**: Astro static site generation with database integration
-- **Deployment**: GitHub Pages via GitHub Actions
+- **Deployment**: GitHub Pages via GitHub Actions (also supports Netlify)
 - **Submission**: GitHub Issues with automated workflow
-- **Integrations**: Custom Astro integrations for database-driven content
 
 ## Dev Environment
 
 ### Setup
 
-- Utilize MCP servers (especially Astro docs MCP) and web search for referencing documentation
+- Utilize MCP servers (especially Astro docs MCP and Netlify MCP) and web search for referencing documentation
 - Use Bun as the package manager and runtime
 - Run `bun install` to install dependencies (Astro, integrations, etc.)
-- Run `bun run db:init` to initialize the SQLite database
-- Run `bun run db:seed` to populate with sample data (optional)
 - Astro configuration is in `astro.config.mjs`
 
 ### Development
@@ -32,7 +29,6 @@ This project uses Astro's content-driven architecture with the latest HTML, CSS,
 - Astro dev server runs at `http://localhost:4321` by default
 - Run `bun run build` to generate static site in `dist/`
 - Run `bun run preview` to preview the production build locally
-- Database is stored in `data/gallery.db` (gitignored)
 - Astro automatically handles file-based routing in `src/pages/`
 
 ### Production
@@ -120,15 +116,6 @@ Use CSS Baseline 2024+ features:
 - `subgrid` for nested grid layouts
 - View Transitions API (Astro has built-in support via `<ViewTransitions />`)
 
-## Documentation
-
-- **PROJECT_SUMMARY.md** - Quick reference and navigation
-- **GETTING_STARTED.md** - Step-by-step development guide
-- **ARCHITECTURE.md** - Technical design and code examples
-- **PROJECT_PLAN.md** - Features, tech stack, and roadmap
-- **TODO.md** - Actionable task breakdown
-- **ROADMAP.md** - Visual timeline and milestones
-
 ## Development Workflow
 
 1. **Project Setup** - Initialize Astro project with Bun runtime
@@ -142,13 +129,3 @@ Use CSS Baseline 2024+ features:
 9. **Automation** - Set up GitHub Actions for submissions and deployment
 10. **Testing** - Performance, accessibility, and functionality
 11. **Deploy** - Build static site and deploy to GitHub Pages
-
-## Astro-Specific Features
-
-- **Zero JS by Default** - Astro ships zero JavaScript unless explicitly needed
-- **Islands Architecture** - Add interactivity only where needed with `client:*` directives
-- **View Transitions** - Use `<ViewTransitions />` in layout for smooth page transitions
-- **Content Collections** - Type-safe content management (if needed beyond SQLite)
-- **Image Optimization** - Use `<Image />` component for automatic optimization
-- **File-Based Routing** - Intuitive routing based on file structure
-- **SSG by Default** - Pre-renders all pages at build time for optimal performance

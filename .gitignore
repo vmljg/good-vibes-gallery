@@ -55,6 +55,9 @@ bun-debug.log*
 .cache/
 .parcel-cache/
 
+# Netlify
+.netlify/
+
 # Misc
 *.bak
 *.orig

@@ -14,6 +14,7 @@
 :root {
   /* Colors - Base palette */
   --color-neutral: ghostwhite;
+  --color-inverse: #111;
   --color-primary: darkseagreen;
   --color-secondary: olive;
   --color-tertiary: salmon;

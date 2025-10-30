@@ -130,6 +130,7 @@ const { date = "October 2025" } = Astro.props;
 
     .hero-header {
       display: grid;
+      grid-template-rows: var(--hero-content-block-size, 50vh) calc(100vh - var(--hero-content-block-size, 50vh));
       grid-template-areas:
         "content"
         "image";
@@ -230,6 +231,8 @@ const { date = "October 2025" } = Astro.props;
     .hero-header__image-container {
       grid-area: image;
       display: grid;
+      grid-template-columns: calc(100% - var(--hero-column-width)) var(--hero-column-width);
+      grid-auto-rows: min-content;
       inline-size: 100%;
       block-size: 100%;
       position: relative;
@@ -331,8 +334,7 @@ const { date = "October 2025" } = Astro.props;
     }
 
     .hero-header__image-container {
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr auto auto;
+      --hero-column-width: 33%;
     }
 
     .hero-header__picture {

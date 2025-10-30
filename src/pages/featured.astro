@@ -1,0 +1,286 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import babyCrawlerImage from '../assets/image/featured/baby-crawler.png';
+
+const projectUrl = 'https://baby-crawler.netlify.app';
+const projectRepo = 'https://github.com/vml-bsummers/baby-crawler';
+const authorUrl = 'https://github.com/vml-bsummers';
+---
+
+<Layout title="Featured Projects - Good Vibes">
+  <main>
+    <article class="featured-page">
+      <div class="featured-page__content">
+        <header class="featured-page__header">
+          <a href="/#featured" class="featured-page__back">← Back</a>
+        </header>
+        <h1 class="featured-page__title">
+          <a href={projectUrl}>Baby Crawler</a>
+        </h1>
+        <div class="featured-page__description">
+          <p>
+            A procedurally generated dungeon crawler where you play as a baby
+            exploring an infinite nursery-themed dungeon!
+          </p>
+        </div>
+        <footer class="featured-page__footer">
+          <p class="featured-page__author">
+            Created by
+            <a href={authorUrl}>Ben Summers</a>
+          </p>
+        </footer>
+      </div>
+      <div class="featured-page__media">
+        <div class="featured-page__image-section">
+          <a href={projectUrl}>
+            <Image
+              src={babyCrawlerImage}
+              alt="Featured project: Baby Crawler"
+              class="featured-page__image"
+              widths={[400, 800, 1200]}
+              sizes="100vw"
+              loading="eager"
+              format="webp"
+            />
+          </a>
+        </div>
+        <div class="featured-page__meta">
+          <dl class="featured-page__metrics">
+            <div class="featured-page__metric no-select">
+              <dt class="featured-page__metric-label">Vibe</dt>
+              <dd class="featured-page__metric-value text-uppercase">Endless</dd>
+            </div>
+            <div class="featured-page__metric">
+              <dt class="featured-page__metric-label no-select">Project</dt>
+              <dd class="featured-page__metric-value">
+                <a href={projectRepo}>vml-bsummers/baby-crawler</a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </article>
+  </main>
+</Layout>
+
+<style>
+  @layer featured-page {
+    .featured-page {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-block-size: 100vh;
+      inline-size: 100%;
+      color-scheme: light dark;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    .featured-page:nth-child(even) {
+      direction: rtl;
+    }
+
+    .featured-page:nth-child(even) > * {
+      direction: ltr;
+    }
+
+    .featured-page__content {
+      display: grid;
+      grid-template-columns: var(--gutter-outer) minmax(min-content, 1fr) var(
+        --gutter-outer
+      );
+      grid-template-rows: var(--gutter-content) auto auto 1fr auto var(--gutter-content);
+      grid-template-areas:
+        ". . ."
+        ". header ."
+        ". title ."
+        ". description ."
+        ". footer ."
+        ". . .";
+      background-color: var(--bg-surface);
+    }
+
+    .featured-page__header {
+      grid-area: header;
+    }
+
+    .featured-page__back {
+      font-family: var(--font-sans);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+    }
+
+    .featured-page__back:hover {
+      text-decoration: underline;
+    }
+
+    .featured-page__title {
+      grid-area: title;
+      font-family: var(--font-sans);
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.1;
+      view-transition-name: featured-title;
+      margin: 0;
+    }
+
+    .featured-page__title a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .featured-page__title a:hover {
+      text-decoration: underline;
+    }
+
+    .featured-page__description {
+      grid-area: description;
+      align-self: center;
+    }
+
+    .featured-page__description p {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--text-primary);
+      text-wrap: pretty;
+      margin: 0;
+    }
+
+    .featured-page__footer {
+      grid-area: footer;
+      align-self: end;
+    }
+
+    .featured-page__author {
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: var(--tracking-wide);
+      view-transition-name: featured-author;
+      margin: 0;
+    }
+
+    .featured-page__author a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .featured-page__author a:hover {
+      text-decoration: underline;
+    }
+
+    .featured-page__media {
+      display: grid;
+      grid-template-rows: 1fr clamp(8rem, 30cqh, 16rem);
+      block-size: 100vh;
+      container-type: size;
+    }
+
+    .featured-page__image-section {
+      position: relative;
+      display: grid;
+      overflow: hidden;
+      aspect-ratio: auto;
+    }
+
+    .featured-page__image-section a {
+      display: grid;
+      inline-size: 100%;
+      block-size: 100%;
+      text-decoration: none;
+    }
+
+    .featured-page__image {
+      background-color: var(--bg-primary);
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+      object-position: center;
+      view-transition-name: featured-image;
+    }
+
+    .featured-page__meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--bg-featured);
+      padding-inline: var(--gutter-outer);
+      z-index: 1;
+    }
+
+    .featured-page__metrics {
+      display: grid;
+      grid-auto-flow: column;
+      gap: clamp(4rem, 10vw, 8rem);
+      inline-size: 100%;
+    }
+
+    .featured-page__metric {
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: 1rem;
+      border-block-end: 2px solid var(--text-primary);
+      padding-block-end: 1rem;
+    }
+
+    .featured-page__metric-label {
+      font-family: var(--font-sans);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+    }
+
+    .featured-page__metric-value {
+      font-family: var(--font-sans);
+      font-size: clamp(1.75rem, 6vw, 3rem);
+      font-weight: 900;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .featured-page__metric-value a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .featured-page__metric-value a:hover {
+      text-decoration: underline;
+    }
+
+    .featured-page__metric:nth-child(2) .featured-page__metric-value {
+      font-size: clamp(1rem, 3vw, 1.5rem);
+    }
+
+    @media (max-width: 48rem) {
+      .featured-page {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        min-block-size: 100vh;
+      }
+
+      .featured-page:nth-child(even) {
+        direction: ltr;
+      }
+
+      .featured-page__media {
+        grid-template-rows: auto clamp(6rem, 30cqh, 12rem);
+        block-size: auto;
+        min-block-size: 100cqw;
+      }
+
+      .featured-page__meta {
+        min-block-size: 6rem;
+      }
+    }
+  }
+</style>
